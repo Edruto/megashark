@@ -37,7 +37,7 @@ class MoviesTable extends Table
         $this->setTable('movies');
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
-
+        
         $this->addBehavior('Timestamp');
 
         $this->hasMany('Showtimes', [
