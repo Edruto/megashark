@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
 
 /**
  * Rooms Controller
@@ -35,11 +36,66 @@ class RoomsController extends AppController
     public function view($id = null)
     {
         $room = $this->Rooms->get($id, [
-            'contain' => []
-        ]);
-
+            'contain' => ['Showtimes']]);
+            
+        $lundi = strtotime('Monday this week');
+        $mardi =strtotime('+1day Monday this week');
+        $mercredi =strtotime('+2days Monday this week');
+        $jeudi =strtotime('+3days Monday this week');
+        $vendredi =strtotime('+4days Monday this week');
+        $samedi =strtotime('+5days Monday this week');
+        $dimanche =strtotime('+6days Monday this week');
+        $lundisuivant = strtotime('+7days Monday this week');
+        
+        $lun = TableRegistry::get('Showtimes')->find()
+            ->where(['room_id ='=> $id])
+            ->where(['start >=' => $lundi])
+            ->where(['start <'=> $mardi]);
+        
+        
+        $mar = TableRegistry::get('Showtimes')->find()
+            ->where(['room_id ='=> $id])
+            ->where(['start >=' => $mardi])
+            ->where(['start <'=> $mercredi]);
+        
+        $mer = TableRegistry::get('Showtimes')->find()
+            ->where(['room_id ='=> $id])
+            ->where(['start >=' => $mercredi])
+            ->where(['start <'=> $jeudi]);
+            
+        $jeu = TableRegistry::get('Showtimes')->find()
+            ->where(['room_id ='=> $id])
+            ->where(['start >=' => $jeudi])
+            ->where(['start <'=> $vendredi]);
+        
+        $ven = TableRegistry::get('Showtimes')->find()
+            ->where(['room_id ='=> $id])
+            ->where(['start >=' => $vendredi])
+            ->where(['start <'=> $samedi]);
+        
+        $sam = TableRegistry::get('Showtimes')->find()
+            ->where(['room_id ='=> $id])
+            ->where(['start >=' => $samedi])
+            ->where(['start <'=> $dimanche]);
+            
+        $dim = TableRegistry::get('Showtimes')->find()
+            ->where(['room_id ='=> $id])
+            ->where(['start >=' => $dimanche])
+            ->where(['start <'=> $lundisuivant]);
+    
+        $query = TableRegistry::get('Showtimes')->find()
+            ->where(['room_id ='=> $id])
+            ->where(['start >=' => $lundi])
+            ->where(['start <='=> $lundisuivant]);
+             
+       
+        $this->set('semaine',[0=> $lun, 1=> $mar, 2=> $mer, 3=> $jeu, 4=> $ven, 5=> $sam, 6=> $dim]);
+                    
+        $this->set('jours',[0=> "Lundi, ".date('d-m-Y', $lundi), 1=> "Mardi, ".date('d-m-Y', $mardi), 2=> "Mercredi, ".date('d-m-Y', $mercredi), 3=> "Jeudi, ".date('d-m-Y', $jeudi), 4=> "Vendredi, ".date('d-m-Y', $vendredi), 5=> "Samedi, ".date('d-m-Y', $samedi), 6=> "Dimanche, ".date('d-m-Y', $dimanche)]);
+                                
+        $this->set('seances',$query);
         $this->set('room', $room);
-        $this->set('_serialize', ['room']);
+        $this->set('_serialize', ['room']); 
     }
 
     /**

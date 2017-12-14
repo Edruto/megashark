@@ -63,6 +63,8 @@ class ShowtimesController extends AppController
         $movies=$this->Showtimes->Movies->find('List');
         $rooms=$this->Showtimes->Rooms->find('List');
         
+        $movies=$this->Showtimes->Movies->find('List',['limit' => 200]);
+        $rooms=$this->Showtimes->Rooms->find('List',['limit' => 200]);
         $this->set(compact('showtime','movies','rooms'));
         $this->set('_serialize', ['showtime']);
     }

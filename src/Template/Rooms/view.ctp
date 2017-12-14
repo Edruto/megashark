@@ -40,13 +40,13 @@
         </tr>
     </table>
     <div class="related">
-        <h4><?= __('Related Showtimes') ?></h4>
+        <h4><?= __('Séances de cette semaine') ?></h4>
         <?php if (!empty($room->showtimes)): ?>
         <table cellpadding="0" cellspacing="0">
             <tr>
-                <th scope="col"><?= __('Id') ?></th>
-                <th scope="col"><?= __('Movie Id') ?></th>
-                <th scope="col"><?= __('Room Id') ?></th>
+                <th scope="col"><?= __('ID') ?></th>
+                <th scope="col"><?= __('Movie ID') ?></th>
+                <th scope="col"><?= __('Room ID') ?></th>
                 <th scope="col"><?= __('Start') ?></th>
                 <th scope="col"><?= __('End') ?></th>
                 <th scope="col"><?= __('Created') ?></th>
@@ -54,6 +54,25 @@
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
             <?php foreach ($room->showtimes as $showtimes): ?>
+            <tr>
+                <?php foreach ($jours as $day): ?>
+                    
+                    <th scope="col"><?= h($day) ?></th>
+                            
+                <?php endforeach; ?>  
+        
+            </tr>
+            <tr>
+                <?php foreach ($semaine as $day): ?>
+                    <?php foreach ($day as $seance): ?>
+               
+                        <tr>
+                        <td><?=h($seance->id)?></td>   
+                        </tr>
+   
+                    <?php endforeach; ?>                 
+                <?php endforeach; ?> 
+            </tr>
             <tr>
                 <td><?= h($showtimes->id) ?></td>
                 <td><?= h($showtimes->movie_id) ?></td>
