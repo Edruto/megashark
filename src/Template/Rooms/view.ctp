@@ -40,7 +40,7 @@
         </tr>
     </table>
     <div class="related">
-        <h4><?= __('Toute les séances') ?></h4>
+        <h4><?= __('Tout les films') ?></h4>
         <?php if (!empty($room->showtimes)): ?>
         <table cellpadding="0" cellspacing="0">
             <tr>
