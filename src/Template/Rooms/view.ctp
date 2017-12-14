@@ -92,11 +92,11 @@
                         <?php foreach ($day as $seance): ?>
             
                             
-                            <?php if($seance->start >= new DateTime("2017-12-12 20:00") && $seance->start <= new DateTime("2017-12-12 21:00")):?>  
+                            <?php ?>
                             <tr>
                             <td><?=h($seance->id)?></td>   
                             </tr>
-                            <?php endif; ?>
+                            <?php ?>
                             
                             
                         <?php endforeach; ?>                 
