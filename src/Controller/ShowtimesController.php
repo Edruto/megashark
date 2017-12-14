@@ -88,7 +88,9 @@ class ShowtimesController extends AppController
             }
             $this->Flash->error(__('The showtime could not be saved. Please, try again.'));
         }
-        $this->set(compact('showtime'));
+        $movies=$this->Showtimes->Movies->find('List',['limit' => 200]);
+        $rooms=$this->Showtimes->Rooms->find('List',['limit' => 200]);
+        $this->set(compact('showtime','movies','rooms'));
         $this->set('_serialize', ['showtime']);
     }
 
