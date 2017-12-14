@@ -40,13 +40,13 @@
         </tr>
     </table>
     <div class="related">
-        <h4><?= __('Séances de cette semaine') ?></h4>
+        <h4><?= __('Toute les séances') ?></h4>
         <?php if (!empty($room->showtimes)): ?>
         <table cellpadding="0" cellspacing="0">
             <tr>
-                <th scope="col"><?= __('ID') ?></th>
-                <th scope="col"><?= __('Movie ID') ?></th>
-                <th scope="col"><?= __('Room ID') ?></th>
+                <th scope="col"><?= __('Id') ?></th>
+                <th scope="col"><?= __('Movie Id') ?></th>
+                <th scope="col"><?= __('Room Id') ?></th>
                 <th scope="col"><?= __('Start') ?></th>
                 <th scope="col"><?= __('End') ?></th>
                 <th scope="col"><?= __('Created') ?></th>
@@ -54,25 +54,6 @@
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
             <?php foreach ($room->showtimes as $showtimes): ?>
-            <tr>
-                <?php foreach ($jours as $day): ?>
-                    
-                    <th scope="col"><?= h($day) ?></th>
-                            
-                <?php endforeach; ?>  
-        
-            </tr>
-            <tr>
-                <?php foreach ($semaine as $day): ?>
-                    <?php foreach ($day as $seance): ?>
-               
-                        <tr>
-                        <td><?=h($seance->id)?></td>   
-                        </tr>
-   
-                    <?php endforeach; ?>                 
-                <?php endforeach; ?> 
-            </tr>
             <tr>
                 <td><?= h($showtimes->id) ?></td>
                 <td><?= h($showtimes->movie_id) ?></td>
@@ -88,6 +69,39 @@
                 </td>
             </tr>
             <?php endforeach; ?>
+        </table>
+        <?php endif; ?>
+    </div>
+    
+    
+     <div class="related">
+        <h4><?= __('Séances de cette semaine') ?></h4>
+        <?php if (!empty($room->showtimes)): ?>
+        <table  cellpadding="0" cellspacing="0">
+            
+                <tr>
+                    <?php foreach ($jours as $day): ?>
+                    
+                     <th scope="col"><?= h($day) ?></th>
+                            
+                    <?php endforeach; ?>  
+        
+                </tr>
+                <tr>
+                    <?php foreach ($semaine as $day): ?>
+                        <?php foreach ($day as $seance): ?>
+            
+                            
+                            <?php if($seance->start >= new DateTime("2017-12-12 20:00") && $seance->start <= new DateTime("2017-12-12 21:00")):?>  
+                            <tr>
+                            <td><?=h($seance->id)?></td>   
+                            </tr>
+                            <?php endif; ?>
+                            
+                            
+                        <?php endforeach; ?>                 
+                    <?php endforeach; ?> 
+                </tr>
         </table>
         <?php endif; ?>
     </div>
